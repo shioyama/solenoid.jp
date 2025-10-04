@@ -1,0 +1,20 @@
+title: Solenoid
+description: Cafe - Space - Lab
+url: "https://solenoid.jp"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+
+# Exclude from processing
+exclude:
+  - deploy.sh
+  - Gemfile
+  - Gemfile.lock
+
+# Collections
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"

@@ -1,0 +1,27 @@
+<!-- Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "{{ site.url }}",
+  "name": "{{ site.title }}",
+  "description": "{{ site.description }}",
+  "url": "{{ site.url }}",
+  "datePublished": "2025-09-28",
+  "dateModified": "2025-10-04",
+  "keywords": "cafe,space,lab,solenoid,coffee,coworking"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "{{ site.title }}",
+    "item": "{{ site.url }}"
+  }]
+}
+</script>
