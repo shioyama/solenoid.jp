@@ -1,0 +1,21 @@
+# Cache images for 1 year (immutable)
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache CSS for 24 hours
+/css/*
+  Cache-Control: public, max-age=86400
+
+# Cache fonts with long expiration
+https://fonts.googleapis.com/*
+  Cache-Control: public, max-age=31536000, immutable
+
+https://fonts.gstatic.com/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages - cache for 1 hour but allow revalidation
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/
+  Cache-Control: public, max-age=3600, must-revalidate

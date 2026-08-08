@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: 'ja' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    {% if page.lang == 'en' %}
+    <meta name="keywords" content="Hakodate, Hokkaido, Japan, cafe, coffee, espresso, bar, event space, Cărtărescu, Cartarescu, Kafka, Borges, literature, surrealism">
+    {% elsif page.lang == 'ja' %}
+    <meta name="keywords" content="函館, 北海道, カフェ, コーヒー, 珈琲, エスプレッソ, バー, 飲み屋, 二十間坂, イベントスペース, カルタレスク, カフカ, ボルヘス, 文学, 小説, シュルレアリスム">
+    {% else %}
+    <meta name="keywords" content="Hakodate, Hokkaido, Japan, cafe, coffee, espresso, bar, event space, Cărtărescu, Cartarescu, Kafka, Borges, literature, surrealism, 函館, 北海道, カフェ, コーヒー, 珈琲, エスプレッソ, バー, 飲み屋, 二十間坂, イベントスペース, カルタレスク, カフカ, ボルヘス, 文学, 小説, シュルレアリスム">
+    {% endif %}
+    <meta property="og:title" content="{{ page.title | default: site.title }}">
+    <meta property="og:description" content="{{ page.description | default: site.description }}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{% if page.lang == 'en' %}en_US{% else %}ja_JP{% endif %}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ page.title | default: site.title }}">
+    <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Nunito+Sans:wght@400;600&display=fallback" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    {% if page.url == "/" %}
+    <link rel="preload" as="image" href="/img/background-1920w.webp" type="image/webp">
+    {% endif %}
+    {% if page.show_header %}
+    <link rel="preload" as="image" href="/img/header-background-1920w.webp" type="image/webp">
+    {% endif %}
+    <script>
+        // Load fonts progressively
+        if ('fonts' in document) {
+            Promise.all([
+                document.fonts.load('1em Odibee Sans'),
+                document.fonts.load('1em Nunito Sans')
+            ]).then(() => {
+                document.documentElement.classList.add('font-loaded');
+            });
+        }
+    </script>
+    <script>
+        function toggleNav() {
+            const dropdown = document.getElementById('navDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const navContainer = document.querySelector('.nav-container');
+            const dropdown = document.getElementById('navDropdown');
+
+            if (!navContainer.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+    </script>
+    {% include structured-data.html %}
+</head>
+<body>
+    <main>
+        {% if page.show_header %}
+        <header class="site-header">
+            <a href="/" class="site-title-link">
+                <picture>
+                    <source srcset="/img/solenoid-logo-name-optimized.webp" type="image/webp">
+                    <img src="/img/solenoid-logo-name-optimized.png" alt="SOLENOID" class="site-title-logo">
+                </picture>
+            </a>
+            <button class="hamburger" onclick="toggleNav()" aria-label="{% if page.lang == 'en' %}Menu{% else %}メニュー{% endif %}">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="site-nav" id="navDropdown">
+                {% if page.lang == 'en' %}
+                <a href="/en/about" class="nav-item {% if page.url contains 'about' %}active{% endif %}">About</a>
+                <a href="/en/space" class="nav-item {% if page.url contains 'space' %}active{% endif %}">Space</a>
+                <a href="/en/calendar" class="nav-item {% if page.url contains 'calendar' %}active{% endif %}">Calendar</a>
+                <a href="/en/access" class="nav-item {% if page.url contains 'access' %}active{% endif %}">Access</a>
+                {% else %}
+                <a href="/ja/about" class="nav-item {% if page.url contains 'about' %}active{% endif %}">紹介</a>
+                <a href="/ja/space" class="nav-item {% if page.url contains 'space' %}active{% endif %}">空間</a>
+                <a href="/ja/calendar" class="nav-item {% if page.url contains 'calendar' %}active{% endif %}">カレンダー</a>
+                <a href="/ja/access" class="nav-item {% if page.url contains 'access' %}active{% endif %}">アクセス</a>
+                {% endif %}
+            </nav>
+        </header>
+        {% endif %}
+        {% if page.show_header %}
+        <div class="page-content">
+            <div class="content-wrapper">
+                {{ content }}
+            </div>
+        </div>
+        {% else %}
+        {{ content }}
+        {% endif %}
+    </main>
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+    <script>
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.gallery-item[data-large]').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    document.getElementById('lightbox-img').src = this.dataset.large;
+                    document.getElementById('lightbox').classList.add('active');
+                });
+            });
+        });
+    </script>
+    {% if page.show_header %}
+    <footer class="site-footer">
+        <div class="footer-content">
+            Copyright {{ site.time | date: "%Y" }} SOLENOID | <a href="mailto:info@solenoid.jp" class="footer-link">info@solenoid.jp</a>
+            {% if page.lang %}
+            {% assign page_name = page.url | split: "/" | last | replace: ".html", "" %}
+            |
+            {% if page.lang == 'en' %}
+            <a href="/ja/{{ page_name }}" class="lang-link">日本語で見る</a>
+            {% else %}
+            <a href="/en/{{ page_name }}" class="lang-link">View in English</a>
+            {% endif %}
+            {% endif %}
+        </div>
+    </footer>
+    {% endif %}
+</body>
+</html>
